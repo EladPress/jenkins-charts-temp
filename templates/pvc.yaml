@@ -1,0 +1,14 @@
+# pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistentVolume.name }}-pvc
+spec:
+  {{- with .Values.persistentVolume.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistentVolume.storage }}
+  volumeName: {{ .Values.persistentVolume.name }}

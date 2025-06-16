@@ -1,0 +1,16 @@
+# pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.persistentVolume.name }}
+spec:
+  capacity:
+    storage: {{ .Values.persistentVolume.storage }}
+  {{- with .Values.persistentVolume.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ .Values.persistentVolume.storageClassName }}
+  hostPath:
+    path: {{ .Values.persistentVolume.hostPath }}
