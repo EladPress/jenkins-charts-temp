@@ -8,6 +8,7 @@ spec:
   accessModes:
     {{- toYaml . | nindent 2 }}
   {{- end }}
+  storageClassName: {{ .Values.persistentVolume.storageClassName }}
   resources:
     requests:
       storage: {{ .Values.persistentVolume.storage }}

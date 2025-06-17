@@ -36,7 +36,9 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext: 
+  runAsUser: 0
+  fsGroup: 0
   # capabilities:
   #   drop:
   #   - ALL
@@ -108,20 +110,18 @@ autoscaling:
 # Additional volumes on the output Deployment definition.
 
 persistentVolume:
-  name: &pv-name jenkins-pv
+  name: jenkins-pv
   storage: 1Gi
   accessModes:
     - ReadWriteOnce
   storageClassName: hostpath
   hostPath: /mnt/f/test
 
-volumes:
-- name: "{{ .Values.persistentVolume.name }}-pvc"
-  persistentVolumeClaim:
-    claimName: "{{ .Values.persistentVolume.name }}-pvc"
+volume:
+  name: '{{ .Values.persistentVolume.name }}-pvc'
+  claimName: "{{ .Values.persistentVolume.name }}-pvc"
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-- name: "{{ .Values.persistentVolume.name }}-pvc"
-  mountPath: "/tmp/test"
-
+  name: "{{ .Values.persistentVolume.name }}-pvc"
+  mountPath: /var/jenkins_home
