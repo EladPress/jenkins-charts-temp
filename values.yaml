@@ -64,7 +64,7 @@ ingress:
     - host: jenkins.eladpress
       paths:
         - path: /
-          pathType: prefix
+          pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
