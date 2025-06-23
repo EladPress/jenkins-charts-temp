@@ -12,5 +12,10 @@ spec:
       protocol: TCP
       name: http
       nodePort: {{ .Values.service.nodePort }}
+    - port: 50000
+      targetPort: 50000
+      protocol: TCP
+      name: http
+
   selector:
     {{- include "jenkins.selectorLabels" . | nindent 4 }}
